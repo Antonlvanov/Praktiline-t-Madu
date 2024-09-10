@@ -10,22 +10,21 @@ namespace Praktiline_töö_Madu
     {
         static void Main(string[] args)
         {
-            Point p1 = new Point();
-            p1.x = 1;
-            p1.x = 3;
-            p1.sym = '*';
+            Console.OutputEncoding = Encoding.UTF8;
 
-            p1.Draw();
+            HorizontalLine upLine = new HorizontalLine(0, 78, 0, '+');
+            HorizontalLine downLine = new HorizontalLine(0, 78, 24, '+');
+            VerticalLine leftLine = new VerticalLine(0, 24, 0, '+');
+            VerticalLine rightLine = new VerticalLine(0, 24, 78, '+');
 
-            Point p2 = new Point();
+            upLine.Draw();
+            downLine.Draw();
+            leftLine.Draw();
+            rightLine.Draw();
 
-            p2.x = 4;
-            p2.y = 5;
-            p2.sym =  '#';
-
-            p1.Draw();
-
-            Console.ReadLine();
+            Point p = new Point(4, 5, '*');
+            Snake snake = new Snake(p, 4, Direction.RIGHT);
+            snake.Draw();
         }
     }
 }
