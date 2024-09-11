@@ -10,19 +10,24 @@ namespace Praktiline_töö_Madu
     {
         List<Figure> wallList; 
 
-        public Walls(int mapWidth, int mapHeight)
+        public Walls()
         {
             wallList = new List<Figure>();
 
-            HorizontalLine upLine = new HorizontalLine(0, mapWidth-2, 0, '+');
-            HorizontalLine downLine = new HorizontalLine(0, mapWidth - 2, mapHeight, '+');
-            VerticalLine leftLine = new VerticalLine(0, mapHeight -1, 0, '+');
-            VerticalLine rightLine = new VerticalLine(0, mapHeight -1, mapWidth, '+');
+            int mapWidth = 80;
+            int mapHeight = 25;
 
-            upLine.Draw();
-            downLine.Draw();
-            leftLine.Draw();
-            rightLine.Draw();
+            // Uus väljade piirid
+
+            HorizontalLine upLine = new HorizontalLine(0, mapWidth-2, 0, '_');
+            HorizontalLine downLine = new HorizontalLine(0, mapWidth - 2, mapHeight, '‾');
+            VerticalLine leftLine = new VerticalLine(1, mapHeight -1, 0, '|');
+            VerticalLine rightLine = new VerticalLine(1, mapHeight -1, mapWidth, '|');
+
+            wallList.Add(upLine);
+            wallList.Add(downLine);
+            wallList.Add(leftLine);
+            wallList.Add(rightLine);
         }
 
         internal bool IsHit(Figure figure )
@@ -40,7 +45,9 @@ namespace Praktiline_töö_Madu
         {
             foreach (var wall in wallList)
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 wall.Draw();
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
     }

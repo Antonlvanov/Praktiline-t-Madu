@@ -17,6 +17,6 @@ namespace Praktiline_töö_Madu
                 Point p = new Point(x, y, sym);
                 pList.Add(p);
             }
-        } 
+        }
     }
 }

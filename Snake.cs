@@ -22,6 +22,7 @@ namespace Praktiline_töö_Madu
                 pList.Add(p);
             }
         }
+        // muudatud välimus
         internal void Move()
         {
             Point tail = pList.First();
@@ -29,8 +30,19 @@ namespace Praktiline_töö_Madu
             Point head = GetNextPoint();
             pList.Add(head);
 
+            if (direction == Direction.LEFT || direction == Direction.RIGHT)
+            {
+                head.sym = '═';
+            }
+            else
+            {
+                head.sym = '║';
+            }
+
             tail.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
             head.Draw();
+            Console.ForegroundColor = ConsoleColor.White;
         }
         public Point GetNextPoint()
         {
@@ -43,7 +55,12 @@ namespace Praktiline_töö_Madu
         internal bool IsHitTail()
         {
             var head = pList.Last();
-            for(int i-0; i < pList.Count-2; int++) 
+            for(int i=0; i < pList.Count-2; i++) 
+            {
+                if ( head.IsHit(pList[i]))
+                    return true;
+            }
+            return false;
         }
 
         public void HandleKey(ConsoleKey key)
@@ -76,6 +93,19 @@ namespace Praktiline_töö_Madu
                 return true;
             }
             else { return false; }
+        }
+        
+        // uus meetod parandab kiirus
+        public int GetMovementDelay()
+        {
+            if (direction == Direction.UP || direction == Direction.DOWN)
+            {
+                return 180;
+            }
+            else
+            {
+                return 100;
+            }
         }
     }
 }
