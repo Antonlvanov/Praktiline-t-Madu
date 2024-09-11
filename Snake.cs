@@ -39,6 +39,13 @@ namespace Praktiline_töö_Madu
             nextPoint.Move (1, direction);
             return nextPoint;
         }
+
+        internal bool IsHitTail()
+        {
+            var head = pList.Last();
+            for(int i-0; i < pList.Count-2; int++) 
+        }
+
         public void HandleKey(ConsoleKey key)
         {
             if (key == ConsoleKey.LeftArrow)
