@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Praktiline_töö_Madu
 {
-    internal class Point
+    class Point
     {
         public int x;
         public int y;
@@ -49,6 +49,12 @@ namespace Praktiline_töö_Madu
         {
             Console.SetCursorPosition(x, y);
             Console.Write(sym);
+        }
+
+        internal void Clear()
+        {
+            sym = ' ';
+            Draw ();
         }
 
         public override string ToString()

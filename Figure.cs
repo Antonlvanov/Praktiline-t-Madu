@@ -10,7 +10,6 @@ namespace Praktiline_töö_Madu
     {
         protected List<Point> pList;
 
-
         public void Draw()
         {
             foreach (Point p in pList)
