@@ -32,11 +32,11 @@ namespace Praktiline_töö_Madu
 
             if (direction == Direction.LEFT || direction == Direction.RIGHT)
             {
-                head.sym = '═';
+                head.sym = '─';
             }
             else
             {
-                head.sym = '║';
+                head.sym = '|';
             }
 
             tail.Clear();

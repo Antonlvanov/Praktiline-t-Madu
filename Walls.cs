@@ -19,8 +19,8 @@ namespace Praktiline_töö_Madu
 
             // Uus väljade piirid
 
-            HorizontalLine upLine = new HorizontalLine(0, mapWidth-2, 0, '_');
-            HorizontalLine downLine = new HorizontalLine(0, mapWidth - 2, mapHeight, '‾');
+            HorizontalLine upLine = new HorizontalLine(0, mapWidth-2, 0, '-');
+            HorizontalLine downLine = new HorizontalLine(0, mapWidth - 2, mapHeight, '-');
             VerticalLine leftLine = new VerticalLine(1, mapHeight -1, 0, '|');
             VerticalLine rightLine = new VerticalLine(1, mapHeight -1, mapWidth, '|');
 
@@ -45,7 +45,7 @@ namespace Praktiline_töö_Madu
         {
             foreach (var wall in wallList)
             {
-                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 wall.Draw();
                 Console.ForegroundColor = ConsoleColor.White;
             }
