@@ -5,15 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Praktiline_töö_Madu
 {
     class Snake : Figure
     {
         Direction direction;
+        Direction prevDirection; //
+
+        int delay = 80; //delay ms
+        int growth = 1; // rost
+
         public Snake(Point tail, int length , Direction _direction)
         {
             direction = _direction;
+            prevDirection = _direction; //
             pList = new List<Point>();
             for (int i = 0; i < length; i++)
             {
@@ -22,26 +29,64 @@ namespace Praktiline_töö_Madu
                 pList.Add(p);
             }
         }
-        // muudatud välimus
+        // muudatud madu välimus 
         internal void Move()
         {
             Point tail = pList.First();
             pList.Remove(tail);
+            Console.SetCursorPosition(80, 25);
             Point head = GetNextPoint();
             pList.Add(head);
 
-            if (direction == Direction.LEFT || direction == Direction.RIGHT)
+            tail.Clear();
+
+            Point prevHead = pList[pList.Count - 2]; // prev head
+
+            // defining direction change
+            if (prevDirection == Direction.UP && direction == Direction.LEFT 
+                || prevDirection == Direction.RIGHT && direction == Direction.DOWN)
             {
-                head.sym = '─';
+                prevHead.sym = '╗';
             }
-            else
+            else if (prevDirection == Direction.UP && direction == Direction.RIGHT 
+                || prevDirection == Direction.LEFT && direction == Direction.DOWN)
             {
-                head.sym = '|';
+                prevHead.sym = '╔';
+            }
+            else if (prevDirection == Direction.DOWN && direction == Direction.LEFT 
+                || prevDirection == Direction.RIGHT && direction == Direction.UP)
+            {
+                prevHead.sym = '╝';
+            }
+            else if (prevDirection == Direction.DOWN && direction == Direction.RIGHT 
+                || prevDirection == Direction.LEFT && direction == Direction.UP)
+            {
+                prevHead.sym = '╚';
             }
 
-            tail.Clear();
+            // if not turn
+            else
+            {
+                if (prevDirection == Direction.LEFT || prevDirection == Direction.RIGHT)
+                {
+                    prevHead.sym = '═';
+                }
+                else if (prevDirection == Direction.UP || prevDirection == Direction.DOWN)
+                {
+                    prevHead.sym = '║';
+                }
+            }
+
+            head.sym = '☺';
+
+            // upd prev direction
+            prevDirection = direction;
+
             Console.ForegroundColor = ConsoleColor.Green;
-            head.Draw();
+            foreach (var point in pList)
+            {
+                point.Draw();
+            }
             Console.ForegroundColor = ConsoleColor.White;
         }
         public Point GetNextPoint()
@@ -63,49 +108,82 @@ namespace Praktiline_töö_Madu
             return false;
         }
 
+        internal bool CheckLength()
+        {
+            if (pList.Count < 2)
+                return true;
+            else
+                return false;
+        }
+
+
+        // chtobi ne ubivat' sebya
         public void HandleKey(ConsoleKey key)
         {
-            if (key == ConsoleKey.LeftArrow)
+            if (key == ConsoleKey.LeftArrow && direction != Direction.RIGHT)
             {
                 direction = Direction.LEFT;
             }
-            else if (key == ConsoleKey.RightArrow)
+            else if (key == ConsoleKey.RightArrow && direction != Direction.LEFT)
             {
                 direction = Direction.RIGHT;
             }
-            else if (key == ConsoleKey.DownArrow)
+            else if (key == ConsoleKey.DownArrow && direction != Direction.UP)
             {
                 direction = Direction.DOWN;
             }
-            else if (key == ConsoleKey.UpArrow)
+            else if (key == ConsoleKey.UpArrow && direction != Direction.DOWN)
             {
                 direction = Direction.UP;
             }
+
         }
 
-        internal bool Eat(Point food)
+        // est edu
+        internal bool Eat(Point food, Score score)
         {
-            Point head = GetNextPoint ();
-            if (head.IsHit (food))
+            Point head = GetNextPoint();
+            if (head.IsHit(food))
             {
-                food.sym = head.sym;
-                pList.Add(food);
+                switch (food.sym)
+                {
+                    case '♥':
+                        Point tailtail = new Point(pList.First());
+                        pList.Insert(0, tailtail);
+                        score.ChangeScore(1);
+                        break;
+                    case '♠':
+                        pList.RemoveAt(pList.Count - 1);
+                        score.ChangeScore(-1);
+                        break;
+                    case '+':
+                        delay -= 20;
+                        if (delay < 0) 
+                        {
+                            return false;
+                        }
+                        break;
+                    case '-':
+                        delay += 20;
+                        if (delay < 0) 
+                        {
+                            return false;
+                        }
+                        break;
+                }
                 return true;
             }
-            else { return false; }
+            return false;
         }
-        
-        // uus meetod parandab kiirus
-        public int GetMovementDelay()
+
+        // new
+        public int GetDelay()
         {
             if (direction == Direction.UP || direction == Direction.DOWN)
             {
-                return 180;
+                return delay + 40;
             }
-            else
-            {
-                return 100;
-            }
+            return delay;
         }
     }
 }

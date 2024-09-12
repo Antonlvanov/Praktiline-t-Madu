@@ -17,9 +17,12 @@ namespace Praktiline_töö_Madu
             int mapWidth = 80;
             int mapHeight = 25;
 
+
+            Console.SetWindowSize(mapWidth+1, mapHeight+1); //
+
             // Uus väljade piirid
 
-            HorizontalLine upLine = new HorizontalLine(0, mapWidth-2, 0, '-');
+            HorizontalLine upLine = new HorizontalLine(0, mapWidth-2, 1, '-');
             HorizontalLine downLine = new HorizontalLine(0, mapWidth - 2, mapHeight, '-');
             VerticalLine leftLine = new VerticalLine(1, mapHeight -1, 0, '|');
             VerticalLine rightLine = new VerticalLine(1, mapHeight -1, mapWidth, '|');

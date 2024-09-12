@@ -9,7 +9,7 @@ namespace Praktiline_töö_Madu
 {
     internal class MainClass
     {
-        // Muudatud tsükkel et parandada funktsionaalsust Game classiga.
+        // Muudatud tsükkel ja funktsionaalsust.
         static void Main(string[] args)
         {
             Console.SetWindowSize(81, 26);
@@ -27,27 +27,38 @@ namespace Praktiline_töö_Madu
                 Snake snake = new Snake(start, 4, Direction.RIGHT);
                 snake.Draw();
 
-                FoodCreator foodCreator = new FoodCreator(80, 25, '$');
-                Point food = foodCreator.CreateFood();
-                food.Draw();
+                Score score = new Score(28, 0); // score / time
+
+                Food food = new Food(80, 25);
+
 
                 while (gameRunning)
                 {
-                    if (walls.IsHit(snake) || snake.IsHitTail())
+                    score.UpdateDisplay();
+                    if (walls.IsHit(snake) || snake.IsHitTail() || snake.CheckLength()) // kontrollib tabamust seintele, sabadele ja pikkadele madudele
                     {
                         gameRunning = false;
                         break;
                     }
-                    if (snake.Eat(food))
+
+                    List<Point> foodItems = food.GetFoodItems(); // food
+                    foreach (var foodItem in foodItems.ToList())
                     {
-                        food = foodCreator.CreateFood();
-                        food.Draw();
+                        if (snake.Eat(foodItem, score))
+                        {
+                            food.RemoveFood(foodItem);
+                            food.CreateFood();
+                        }
                     }
-                    else
-                    {
-                        snake.Move();
-                    }
-                    Thread.Sleep(snake.GetMovementDelay());
+
+                    if (snake.CheckLength() == true) { gameRunning = false; break;} // exception avoid
+
+                    Thread.Sleep(snake.GetDelay());
+                    snake.Move();
+
+                    food.Draw();
+
+                    Console.SetCursorPosition(80, 25);
 
                     if (Console.KeyAvailable)
                     {
@@ -55,7 +66,7 @@ namespace Praktiline_töö_Madu
                         snake.HandleKey(key.Key);
                     }
                 }
-                playAgain = Game.AskPlayAgain();
+                playAgain = Game.AskPlayAgain(score);
             }
         }
     }
