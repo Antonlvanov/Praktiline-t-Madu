@@ -16,7 +16,7 @@ namespace Praktiline_töö_Madu
             Walls walls = new Walls();
             walls.Draw();
 
-            Game.GameOver(score.GetScore(), score.GetTime());
+            Game.GameOver(score.GetScore(), score.GetSpeed(), score.GetTime());
 
             Console.SetCursorPosition(30, 14);
             Console.Write("Сыграть снова? (Y/N): ");
@@ -34,7 +34,7 @@ namespace Praktiline_töö_Madu
             }
         }
 
-        public static void GameOver(int score, string time)
+        public static void GameOver(int score, int speed, string time)
         {
             string[] gameOver = new string[]
                 {
@@ -59,7 +59,10 @@ namespace Praktiline_töö_Madu
             Console.SetCursorPosition(28, 18);
             Console.WriteLine($"Счет: {score}");
             Console.SetCursorPosition(38, 18);
+            Console.WriteLine($"Макс скорость: {speed}");
+            Console.SetCursorPosition(28, 20);
             Console.WriteLine($"Время жизни: {time}");
+
         }
     }
 }

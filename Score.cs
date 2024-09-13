@@ -12,7 +12,8 @@ namespace Praktiline_töö_Madu
 {
     class Score
     {
-        private int score; 
+        private int score;
+        public int speed;
         private Stopwatch stopwatch; 
         private int x; // pos
         private int y; // pos
@@ -20,6 +21,7 @@ namespace Praktiline_töö_Madu
 
         public Score(int startX, int startY)
         {
+            speed = 1;
             score = 3;
             stopwatch = new Stopwatch();
             x = startX;
@@ -33,12 +35,18 @@ namespace Praktiline_töö_Madu
             score = score + scoreChange;
             UpdateDisplay();
         }
+        public void ChangeSpeed(int speedChange)
+        {
+            speed = speed + speedChange;
+            UpdateDisplay();
+        }
 
         public string GetTime()
         {
             return stopwatch.Elapsed.ToString(@"mm\:ss");
         }
 
+        public int GetSpeed() { return speed; }
         public int GetScore()
         {
             return score;
@@ -54,7 +62,7 @@ namespace Praktiline_töö_Madu
         {
             Console.SetCursorPosition(x, y);
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write($"HP: {score}  Time: {stopwatch.Elapsed:mm\\:ss}");
+            Console.Write($"HP: {score} Speed: {speed} Time: {stopwatch.Elapsed:mm\\:ss}");
             Console.SetCursorPosition(80, 25);
             Console.ForegroundColor = ConsoleColor.White;
         }
