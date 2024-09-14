@@ -16,7 +16,7 @@ namespace Praktiline_töö_Madu
             Walls walls = new Walls();
             walls.Draw();
 
-            Game.GameOver(score.GetScore(), score.GetTime());
+            Game.GameOver(maxScore, maxSpeed, score.GetTime());
 
             Console.SetCursorPosition(30, 14);
             Console.Write("Сыграть снова? (Y/N): ");
