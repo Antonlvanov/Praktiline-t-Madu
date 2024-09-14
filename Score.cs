@@ -46,6 +46,7 @@ namespace Praktiline_töö_Madu
             return stopwatch.Elapsed.ToString(@"mm\:ss");
         }
 
+        public int GetSpeed() { return speed; }
         public int GetScore()
         {
             return score;

@@ -68,7 +68,7 @@ namespace Praktiline_töö_Madu
         {
             Point tail = pList.First();
             pList.Remove(tail);
-            Console.SetCursorPosition(80, 25);
+            Console.SetCursorPosition(80, 25); // fix blinking cursor point
             Point head = GetNextPoint();
             pList.Add(head);
 
@@ -76,7 +76,7 @@ namespace Praktiline_töö_Madu
 
             Point prevHead = pList[pList.Count - 2]; // prev head
 
-            // defining direction change
+            // defining snake appearance
             if (prevDirection == Direction.UP && direction == Direction.LEFT 
                 || prevDirection == Direction.RIGHT && direction == Direction.DOWN)
             {

@@ -16,7 +16,7 @@ namespace Praktiline_töö_Madu
             Walls walls = new Walls();
             walls.Draw();
 
-            Game.GameOver(maxScore, maxSpeed, score.GetTime());
+            Game.GameOver(score.GetScore(), score.GetTime());
 
             Console.SetCursorPosition(30, 14);
             Console.Write("Сыграть снова? (Y/N): ");
@@ -68,6 +68,7 @@ namespace Praktiline_töö_Madu
             Console.WriteLine($"Макс. скорость: {maxspeed}");
             Console.SetCursorPosition(31, 21);
             Console.WriteLine($"Время жизни: {time}");
+
         }
     }
 }
