@@ -29,15 +29,22 @@ namespace Praktiline_töö_Madu
             }
         }
 
-        public void CreateFood()
+        public void CreateFood() // random food
         {
-            int x = random.Next(2, mapWidth - 2);
-            int y = random.Next(2, mapHeight - 2);
-            char foodSym = foodSymbols[random.Next(foodSymbols.Length)];
-
-            Point newFood = new Point(x, y, foodSym);
-
-            foodItems.Add(newFood);
+            foreach (char food in foodSymbols)
+            {
+                if (!foodItems.Any(foods => foods.sym == food))
+                {
+                    int x = random.Next(2, mapWidth - 2);
+                    int y = random.Next(2, mapHeight - 2);
+                    foodItems.Add(new Point(x, y, food));
+                    return;
+                }
+            }
+            int x_ = random.Next(2, mapWidth - 2);
+            int y_ = random.Next(2, mapHeight - 2);
+            char nextSymbol = foodSymbols[foodItems.Count % foodSymbols.Length];
+            foodItems.Add(new Point(x_, y_, nextSymbol));
         }
 
         public List<Point> GetFoodItems()

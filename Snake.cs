@@ -14,21 +14,55 @@ namespace Praktiline_töö_Madu
         Direction direction;
         Direction prevDirection; //
 
-        int delay = 80; //delay ms
+        double delay = 100; //delay ms
         int growth = 1; // rost
+        int length = 3;
+        double speed = 10;
 
         public Snake(Point tail, int length , Direction _direction)
         {
             direction = _direction;
-            prevDirection = _direction; //
+            prevDirection = _direction;
             pList = new List<Point>();
+            Console.ForegroundColor = ConsoleColor.Green;
             for (int i = 0; i < length; i++)
             {
                 Point p = new Point(tail);
                 p.Move(i, direction);
                 pList.Add(p);
             }
+            pList.Last().sym = '☺';
+            Console.ForegroundColor = ConsoleColor.White;
         }
+
+        public Point GetNextPoint()
+        {
+            Point head = pList.Last();
+            Point nextPoint = new Point(head);
+            head.sym = '☺';
+            nextPoint.Move(1, direction);
+            return nextPoint;
+        }
+
+        internal bool IsHitTail()
+        {
+            var head = pList.Last();
+            for (int i = 0; i < pList.Count - 2; i++)
+            {
+                if (head.IsHit(pList[i]))
+                    return true;
+            }
+            return false;
+        }
+
+        internal bool CheckLength()
+        {
+            if (pList.Count < 2)
+                return true;
+            else
+                return false;
+        }
+
         // muudatud madu välimus 
         internal void Move()
         {
@@ -77,8 +111,6 @@ namespace Praktiline_töö_Madu
                 }
             }
 
-            head.sym = '☺';
-
             // upd prev direction
             prevDirection = direction;
 
@@ -89,33 +121,6 @@ namespace Praktiline_töö_Madu
             }
             Console.ForegroundColor = ConsoleColor.White;
         }
-        public Point GetNextPoint()
-        {
-            Point head = pList.Last();
-            Point nextPoint = new Point(head);
-            nextPoint.Move (1, direction);
-            return nextPoint;
-        }
-
-        internal bool IsHitTail()
-        {
-            var head = pList.Last();
-            for(int i=0; i < pList.Count-2; i++) 
-            {
-                if ( head.IsHit(pList[i]))
-                    return true;
-            }
-            return false;
-        }
-
-        internal bool CheckLength()
-        {
-            if (pList.Count < 2)
-                return true;
-            else
-                return false;
-        }
-
 
         // chtobi ne ubivat' sebya
         public void HandleKey(ConsoleKey key)
@@ -139,7 +144,7 @@ namespace Praktiline_töö_Madu
 
         }
 
-        // est edu
+        // est edu & effects
         internal bool Eat(Point food, Score score)
         {
             Point head = GetNextPoint();
@@ -150,40 +155,40 @@ namespace Praktiline_töö_Madu
                     case '♥':
                         Point tailtail = new Point(pList.First());
                         pList.Insert(0, tailtail);
-                        score.ChangeScore(1);
+                        length++;
                         break;
                     case '♠':
                         pList.RemoveAt(pList.Count - 1);
-                        score.ChangeScore(-1);
+                        length--;
                         break;
                     case '+':
-                        delay -= 20;
-                        if (delay < 0) 
-                        {
-                            return false;
-                        }
+                        delay *= 0.8;
                         break;
                     case '-':
-                        delay += 20;
-                        if (delay < 0) 
-                        {
-                            return false;
-                        }
+                        delay *= 1.2;
                         break;
                 }
+                speed = CalculateSpeed();
+                score.ChangeScore(length, speed);
                 return true;
             }
             return false;
         }
 
-        // new
+        public double CalculateSpeed()
+        {
+            // low delay - high speed
+            return 500 / delay;
+        }
+
+        // horisontal / vertical speed
         public int GetDelay()
         {
             if (direction == Direction.UP || direction == Direction.DOWN)
             {
-                return delay + 40;
+                return (int)(delay * 1.7);
             }
-            return delay;
+            return (int)(delay);
         }
     }
 }

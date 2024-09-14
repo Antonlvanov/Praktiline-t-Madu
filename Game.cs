@@ -10,13 +10,13 @@ namespace Praktiline_töö_Madu
     // mänguvälise suhtluse akna kuvamine
     class Game
     {
-        public static bool AskPlayAgain(Score score)
+        public static bool AskPlayAgain(Score score, int maxScore, int maxSpeed)
         {
             Console.Clear();
             Walls walls = new Walls();
             walls.Draw();
 
-            Game.GameOver(score.GetScore(), score.GetTime());
+            Game.GameOver(maxScore, maxSpeed, score.GetTime());
 
             Console.SetCursorPosition(30, 14);
             Console.Write("Сыграть снова? (Y/N): ");
@@ -27,14 +27,18 @@ namespace Praktiline_töö_Madu
                 {
                     return true;
                 }
-                else
+                else if (key.Key == ConsoleKey.N)
                 {
                     return false;
+                }
+                else
+                {
+                    Thread.Sleep(500);
                 }
             }
         }
 
-        public static void GameOver(int score, string time)
+        public static void GameOver(int maxscore, int maxspeed, string time)
         {
             string[] gameOver = new string[]
                 {
@@ -56,9 +60,13 @@ namespace Praktiline_töö_Madu
             }
             Console.ForegroundColor = ConsoleColor.White;
 
-            Console.SetCursorPosition(28, 18);
-            Console.WriteLine($"Счет: {score}");
-            Console.SetCursorPosition(38, 18);
+            Thread.Sleep(1000);
+
+            Console.SetCursorPosition(33, 17);
+            Console.WriteLine($"Лучший счет: {maxscore}");
+            Console.SetCursorPosition(32, 19);
+            Console.WriteLine($"Макс. скорость: {maxspeed}");
+            Console.SetCursorPosition(31, 21);
             Console.WriteLine($"Время жизни: {time}");
         }
     }

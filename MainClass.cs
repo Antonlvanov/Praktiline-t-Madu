@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,11 @@ namespace Praktiline_töö_Madu
         {
             Console.SetWindowSize(81, 26);
             Console.OutputEncoding = Encoding.UTF8;
+
             bool playAgain = true;
+            int maxScore = 0;
+            int maxSpeed = 0;
+
             while (playAgain)
             {
                 Console.Clear();
@@ -27,14 +32,18 @@ namespace Praktiline_töö_Madu
                 Snake snake = new Snake(start, 4, Direction.RIGHT);
                 snake.Draw();
 
-                Score score = new Score(28, 0); // score / time
+                Score score = new Score(28, 1); // score / time
 
                 Food food = new Food(80, 25);
 
+                Thread.Sleep(500);
 
                 while (gameRunning)
                 {
+                    if (maxScore < (int)score.GetScore()) { maxScore = (int)score.GetScore(); }  // result table
+                    if (maxSpeed < (int)snake.CalculateSpeed()) { maxSpeed = (int)snake.CalculateSpeed(); } // result table
                     score.UpdateDisplay();
+
                     if (walls.IsHit(snake) || snake.IsHitTail() || snake.CheckLength()) // kontrollib tabamust seintele, sabadele ja pikkadele madudele
                     {
                         gameRunning = false;
@@ -66,7 +75,7 @@ namespace Praktiline_töö_Madu
                         snake.HandleKey(key.Key);
                     }
                 }
-                playAgain = Game.AskPlayAgain(score);
+                playAgain = Game.AskPlayAgain(score, maxScore, maxSpeed);
             }
         }
     }

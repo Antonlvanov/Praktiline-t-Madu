@@ -20,7 +20,7 @@ namespace Praktiline_töö_Madu
 
             Console.SetWindowSize(mapWidth+1, mapHeight+1); //
 
-            // Uus väljade piirid
+            // uus väljade piirid
 
             HorizontalLine upLine = new HorizontalLine(0, mapWidth-2, 1, '-');
             HorizontalLine downLine = new HorizontalLine(0, mapWidth - 2, mapHeight, '-');
