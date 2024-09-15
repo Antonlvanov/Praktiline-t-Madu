@@ -15,9 +15,8 @@ namespace Praktiline_töö_Madu
         Direction prevDirection; //
 
         double delay = 100; //delay ms
-        int growth = 1; // rost
         int length = 3;
-        double speed = 10;
+        double speed;
 
         public Snake(Point tail, int length , Direction _direction)
         {
@@ -31,6 +30,7 @@ namespace Praktiline_töö_Madu
                 p.Move(i, direction);
                 pList.Add(p);
             }
+            Point head = pList.Last();
             pList.Last().sym = '☺';
             Console.ForegroundColor = ConsoleColor.White;
         }
@@ -145,7 +145,7 @@ namespace Praktiline_töö_Madu
         }
 
         // est edu & effects
-        internal bool Eat(Point food, Score score)
+        internal bool Eat(Point food, Score score, Sounds sounds)
         {
             Point head = GetNextPoint();
             if (head.IsHit(food))
@@ -156,16 +156,20 @@ namespace Praktiline_töö_Madu
                         Point tailtail = new Point(pList.First());
                         pList.Insert(0, tailtail);
                         length++;
+                        sounds.PlayEat();
                         break;
                     case '♠':
                         pList.RemoveAt(pList.Count - 1);
                         length--;
+                        sounds.PlayEatPoison();
                         break;
                     case '+':
                         delay *= 0.8;
+                        sounds.SpeedUp();
                         break;
                     case '-':
                         delay *= 1.2;
+                        sounds.SlowDown();
                         break;
                 }
                 speed = CalculateSpeed();
@@ -186,7 +190,7 @@ namespace Praktiline_töö_Madu
         {
             if (direction == Direction.UP || direction == Direction.DOWN)
             {
-                return (int)(delay * 1.7);
+                return (int)(delay * 1.3);
             }
             return (int)(delay);
         }

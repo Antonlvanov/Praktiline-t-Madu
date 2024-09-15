@@ -6,6 +6,11 @@
     <RootNamespace>Praktiline_töö_Madu</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <StartupObject>Praktiline_töö_Madu.MainClass</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.2.1" />
+  </ItemGroup>
 
 </Project>
