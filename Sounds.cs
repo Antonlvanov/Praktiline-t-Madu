@@ -9,7 +9,7 @@ namespace Praktiline_töö_Madu
         private string pathToMedia;
         private IWavePlayer waveOut;
         private AudioFileReader audioFileReader;
-        private bool isLooping; // Флаг для зацикливания
+        private bool isLoop;
 
         public Sounds()
         {
@@ -56,7 +56,7 @@ namespace Praktiline_töö_Madu
         private void PlaySound(string fileName, bool loop, float volume)
         {
             string fullPath = pathToMedia + fileName;
-            isLooping = loop;
+            isLoop = loop;
 
             // volume
             audioFileReader = new AudioFileReader(fullPath)
@@ -73,7 +73,7 @@ namespace Praktiline_töö_Madu
 
         private void OnPlaybackStopped(object sender, StoppedEventArgs e)
         {
-            if (isLooping && waveOut != null && audioFileReader != null)
+            if (isLoop && waveOut != null && audioFileReader != null)
             {
                 audioFileReader.Position = 0;
                 waveOut.Play();

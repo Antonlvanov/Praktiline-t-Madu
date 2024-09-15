@@ -19,7 +19,9 @@ namespace Praktiline_töö_Madu
             Game.GameOver(maxScore, maxSpeed, score.GetTime());
 
             Console.SetCursorPosition(30, 14);
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("Сыграть снова? (Y/N): ");
+            Console.ForegroundColor = ConsoleColor.White;
             while (true)
             {
                 ConsoleKeyInfo key = Console.ReadKey(true);
@@ -62,12 +64,14 @@ namespace Praktiline_töö_Madu
 
             Thread.Sleep(1000);
 
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.SetCursorPosition(33, 17);
             Console.WriteLine($"Лучший счет: {maxscore}");
             Console.SetCursorPosition(32, 19);
             Console.WriteLine($"Макс. скорость: {maxspeed}");
             Console.SetCursorPosition(31, 21);
             Console.WriteLine($"Время жизни: {time}");
+            Console.ForegroundColor = ConsoleColor.White;
 
         }
     }

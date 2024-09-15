@@ -190,7 +190,7 @@ namespace Praktiline_töö_Madu
         {
             if (direction == Direction.UP || direction == Direction.DOWN)
             {
-                return (int)(delay * 1.3);
+                return (int)(delay * 1.33);
             }
             return (int)(delay);
         }

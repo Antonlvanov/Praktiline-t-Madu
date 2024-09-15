@@ -46,7 +46,7 @@ namespace Praktiline_töö_Madu
 
                 while (gameRunning)
                 {
-                    if (maxScore < (int)score.GetScore()) { maxScore = (int)score.GetScore(); }  // result table
+                    if (maxScore < score.GetScore()) { maxScore = score.GetScore(); }  // result table
                     if (maxSpeed < (int)snake.CalculateSpeed()) { maxSpeed = (int)snake.CalculateSpeed(); } // result table
                     score.UpdateDisplay();
 

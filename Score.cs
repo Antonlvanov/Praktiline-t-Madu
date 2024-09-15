@@ -61,7 +61,7 @@ namespace Praktiline_töö_Madu
         public void UpdateDisplay()
         {
             Console.SetCursorPosition(x, y);
-            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Write($"Score: {score} Speed: {speed} Time: {stopwatch.Elapsed:mm\\:ss}");
             Console.SetCursorPosition(80, 25);
             Console.ForegroundColor = ConsoleColor.White;
