@@ -48,9 +48,9 @@ namespace Praktiline_töö_Madu
         {
             foreach (var wall in wallList)
             {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.ForegroundColor = ConsoleColor.Red;
                 wall.Draw();
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ResetColor();
             }
         }
     }

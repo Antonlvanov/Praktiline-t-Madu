@@ -64,14 +64,14 @@ namespace Praktiline_töö_Madu
 
             Thread.Sleep(1000);
 
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.SetCursorPosition(33, 17);
             Console.WriteLine($"Лучший счет: {maxscore}");
             Console.SetCursorPosition(32, 19);
             Console.WriteLine($"Макс. скорость: {maxspeed}");
             Console.SetCursorPosition(31, 21);
             Console.WriteLine($"Время жизни: {time}");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ResetColor();
 
         }
     }

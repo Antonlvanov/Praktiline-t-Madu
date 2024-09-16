@@ -1,4 +1,5 @@
 ﻿using NAudio.Wave;
+using NAudio;
 using System;
 using System.IO;
 
@@ -64,6 +65,7 @@ namespace Praktiline_töö_Madu
                 Volume = volume
             };
 
+            // playsound
             waveOut = new WaveOutEvent();
             waveOut.Init(audioFileReader);
             waveOut.Play();
@@ -73,7 +75,7 @@ namespace Praktiline_töö_Madu
 
         private void OnPlaybackStopped(object sender, StoppedEventArgs e)
         {
-            if (isLoop && waveOut != null && audioFileReader != null)
+            if (isLoop)
             {
                 audioFileReader.Position = 0;
                 waveOut.Play();

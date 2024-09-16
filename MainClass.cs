@@ -26,6 +26,7 @@ namespace Praktiline_töö_Madu
             while (playAgain)
             {
                 Console.Clear();
+
                 bool gameRunning = true;
 
                 Walls walls = new Walls();
@@ -73,7 +74,7 @@ namespace Praktiline_töö_Madu
                     Thread.Sleep(snake.GetDelay());
                     snake.Move();
 
-                    food.Draw();
+                    food.DrawWithColor();
 
                     Console.SetCursorPosition(80, 25);
 

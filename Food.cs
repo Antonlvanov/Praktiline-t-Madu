@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace Praktiline_töö_Madu
         char[] foodSymbols = { '♥', '+', '-', '♠' }; // food
         List<Point> foodItems = new List<Point>();
         Random random = new Random();
+
+        ConsoleColor[] colors = (ConsoleColor[])ConsoleColor.GetValues(typeof(ConsoleColor));
 
         public Food(int mapWidth, int mapHeight)
         {
@@ -35,16 +38,20 @@ namespace Praktiline_töö_Madu
             {
                 if (!foodItems.Any(foods => foods.sym == food))
                 {
+                    ConsoleColor color__ = colors[random.Next(colors.Length)];
                     int x = random.Next(2, mapWidth - 2);
                     int y = random.Next(2, mapHeight - 2);
-                    foodItems.Add(new Point(x, y, food));
+                    foodItems.Add(new Point(x, y, food, color__));
                     return;
                 }
             }
+
             int x_ = random.Next(2, mapWidth - 2);
             int y_ = random.Next(2, mapHeight - 2);
             char nextSymbol = foodSymbols[foodItems.Count % foodSymbols.Length];
-            foodItems.Add(new Point(x_, y_, nextSymbol));
+
+            ConsoleColor color = colors[random.Next(colors.Length)];
+            foodItems.Add(new Point(x_, y_, nextSymbol, color));
         }
 
         public List<Point> GetFoodItems()
@@ -62,6 +69,14 @@ namespace Praktiline_töö_Madu
             foreach (var food in foodItems)
             {
                 food.Draw();
+            }
+        }
+
+        public void DrawWithColor()
+        {
+            foreach (var food in foodItems)
+            {
+                food.DrawWithColor();
             }
         }
     }

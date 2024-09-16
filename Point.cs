@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,10 @@ namespace Praktiline_töö_Madu
         public int x;
         public int y;
         public char sym;
+        public ConsoleColor color;
+
+        Random random = new Random();
+        ConsoleColor[] colors = (ConsoleColor[])ConsoleColor.GetValues(typeof(ConsoleColor));
 
         public Point()
         {
@@ -20,6 +25,14 @@ namespace Praktiline_töö_Madu
             x = _x;
             y = _y;
             sym = _sym;
+        }
+
+        public Point(int _x, int _y, char _sym, ConsoleColor _color)
+        {
+            x = _x;
+            y = _y;
+            sym = _sym;
+            color = _color;
         }
 
         public Point(Point p)
@@ -54,6 +67,18 @@ namespace Praktiline_töö_Madu
         {
             Console.SetCursorPosition(x, y);
             Console.Write(sym);
+        }
+
+        public void DrawWithColor()
+        {
+            if (color == ConsoleColor.Black)
+            {
+                color = colors[random.Next(colors.Length)];
+            }
+            Console.SetCursorPosition(x, y);
+            Console.ForegroundColor = color;
+            Console.Write(sym);
+            Console.ResetColor();
         }
 
         internal void Clear()
