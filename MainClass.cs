@@ -23,6 +23,8 @@ namespace Praktiline_töö_Madu
             Sounds soundTheme = new Sounds();
             Sounds sounds = new Sounds();
 
+            Leaderboard leaderboard = new Leaderboard();
+
             while (playAgain)
             {
                 Console.Clear();
@@ -84,7 +86,10 @@ namespace Praktiline_töö_Madu
                         snake.HandleKey(key.Key);
                     }
                 }
-                playAgain = Game.AskPlayAgain(score, maxScore, maxSpeed);
+                leaderboard.AddLeader("John", maxScore);
+                leaderboard.DisplayLeaders();
+                Thread.Sleep(3000);
+                playAgain = Game.AskPlayAgain(score, leaderboard, maxScore, maxSpeed);
             }
         }
     }

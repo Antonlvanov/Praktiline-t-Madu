@@ -10,16 +10,20 @@ namespace Praktiline_töö_Madu
     // mänguvälise suhtluse akna kuvamine
     class Game
     {
-        public static bool AskPlayAgain(Score score, int maxScore, int maxSpeed)
+        public static bool AskPlayAgain(Score score, Leaderboard leaderboard, int maxScore, int maxSpeed)
         {
             Console.Clear();
             Walls walls = new Walls();
             walls.Draw();
+            string leader;
 
             Game.GameOver(maxScore, maxSpeed, score.GetTime());
 
             Console.SetCursorPosition(30, 14);
             Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Введите имя: ");
+            leader = Console.ReadLine();
+            leaderboard.
             Console.Write("Сыграть снова? (Y/N): ");
             Console.ForegroundColor = ConsoleColor.White;
             while (true)
