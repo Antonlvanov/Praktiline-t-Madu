@@ -13,18 +13,20 @@ namespace Praktiline_töö_Madu
         public static bool AskPlayAgain(Score score, Leaderboard leaderboard, int maxScore, int maxSpeed)
         {
             Console.Clear();
-            Walls walls = new Walls();
-            walls.Draw();
+
             string leader;
 
             Game.GameOver(maxScore, maxSpeed, score.GetTime());
 
-            Console.SetCursorPosition(30, 14);
+            // lisame uus mängija nimi ja skoori
+            Console.SetCursorPosition(34, 14);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("Введите имя: ");
             leader = Console.ReadLine();
-            leaderboard.
-            Console.Write("Сыграть снова? (Y/N): ");
+            leaderboard.AddLeader(leader, maxScore, maxSpeed, score.GetTime());
+
+            Console.SetCursorPosition(20, 14);
+            Console.Write("Сыграть снова / Вернутся в меню? (Y/M): ");
             Console.ForegroundColor = ConsoleColor.White;
             while (true)
             {
@@ -33,7 +35,7 @@ namespace Praktiline_töö_Madu
                 {
                     return true;
                 }
-                else if (key.Key == ConsoleKey.N)
+                else if (key.Key == ConsoleKey.M)
                 {
                     return false;
                 }
@@ -60,7 +62,7 @@ namespace Praktiline_töö_Madu
             Console.ForegroundColor = ConsoleColor.Red;
             foreach (var line in gameOver)
             {
-                Console.SetCursorPosition(15, 7 + i);
+                Console.SetCursorPosition(15, 4 + i);
                 Console.WriteLine(line);
                 i++;
             }

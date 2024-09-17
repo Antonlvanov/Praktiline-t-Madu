@@ -11,7 +11,7 @@ namespace Praktiline_töö_Madu
     {
         int mapWidth;
         int mapHeight;
-        char[] foodSymbols = { '♥', '+', '-', '♠' }; // food
+        char[] foodSymbols = { '♥', '↑', '↓', '♠' }; // food
         List<Point> foodItems = new List<Point>();
         Random random = new Random();
 

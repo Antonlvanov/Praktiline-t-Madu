@@ -19,6 +19,17 @@ namespace Praktiline_töö_Madu
             pathToMedia = binFolder + "resources\\";
         }
 
+
+        public void PlayStart()
+        {
+            PlaySound("game-start.mp3", loop: false, volume: 0.4f);
+        }
+
+        public void PlaySelect()
+        {
+            PlaySound("menuselect.mp3", loop: false, volume: 0.4f);
+        }
+
         public void Play(string songName)
         {
             PlaySound(songName + ".mp3", loop: false, volume: 0.3f);
@@ -31,7 +42,7 @@ namespace Praktiline_töö_Madu
 
         public void PlayEatPoison()
         {
-            PlaySound("cough.mp3", loop: false, volume: 0.5f);
+            PlaySound("cough.mp3", loop: false, volume: 0.4f);
         }
 
         public void SpeedUp()
@@ -41,7 +52,7 @@ namespace Praktiline_töö_Madu
         
         public void SlowDown()
         {
-            PlaySound("power-down.mp3", loop: false, volume: 2.5f);
+            PlaySound("power-down.mp3", loop: false, volume: 1.3f);
         }
 
         public void GameOver()
@@ -70,10 +81,10 @@ namespace Praktiline_töö_Madu
             waveOut.Init(audioFileReader);
             waveOut.Play();
 
-            waveOut.PlaybackStopped += OnPlaybackStopped;
+            waveOut.PlaybackStopped += OnPlaybackStopped; 
         }
 
-        private void OnPlaybackStopped(object sender, StoppedEventArgs e)
+        private void OnPlaybackStopped(object sender, StoppedEventArgs e) // loop fix
         {
             if (isLoop)
             {

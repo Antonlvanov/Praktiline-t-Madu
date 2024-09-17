@@ -163,11 +163,11 @@ namespace Praktiline_töö_Madu
                         length--;
                         sounds.PlayEatPoison();
                         break;
-                    case '+':
+                    case '↑':
                         delay *= 0.8;
                         sounds.SpeedUp();
                         break;
-                    case '-':
+                    case '↓':
                         delay *= 1.2;
                         sounds.SlowDown();
                         break;

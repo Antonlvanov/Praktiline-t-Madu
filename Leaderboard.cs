@@ -22,16 +22,20 @@ namespace Praktiline_töö_Madu
         {
             public string Name { get; set; }
             public int Score { get; set; }
+            public int Speed { get; set; }
+            public string Time { get; set; }
 
-            public Leader(string name, int score)
+            public Leader(string name, int score, int speed, string time)
             {
                 Name = name;
                 Score = score;
+                Speed = speed;
+                Time = time;
             }
 
             public override string ToString()
             {
-                return $"{Name}: {Score}";
+                return $"{Name} | Счет: {Score} | Cкорость: {Speed} | Время: {Time}";
             }
         }
 
@@ -41,7 +45,7 @@ namespace Praktiline_töö_Madu
             {
                 foreach (var leader in leaders)
                 {
-                    writer.WriteLine($"{leader.Name},{leader.Score}");
+                    writer.WriteLine($"{leader.Name},{leader.Score},{leader.Speed},{leader.Time}");
                 }
             }
         }
@@ -53,29 +57,32 @@ namespace Praktiline_töö_Madu
             {
                 return leaders;
             }
-
             using (StreamReader reader = new StreamReader(filePath))
             {
                 string line;
+
                 while ((line = reader.ReadLine()) != null)
                 {
-                    var parts = line.Split(',');
-                    if (parts.Length == 2 && int.TryParse(parts[1], out int score))
-                    {
-                        leaders.Add(new Leader(parts[0], score));
-                    }
+                    string[] data = line.Split(',');
+
+                    string name = data[0];
+                    int score = int.Parse(data[1]);
+                    int speed = int.Parse(data[2]); ;
+                    string time = data[3];
+
+                    leaders.Add(new Leader(name, score, speed, time));
                 }
             }
 
-            return leaders.OrderByDescending(l => l.Score).ToList();
+            return leaders;
         }
 
-        public void AddLeader(string name, int score)
+        public void AddLeader(string name, int score, int speed, string time)
         {
             var leaders = LoadLeaders();
-            leaders.Add(new Leader(name, score));
+            leaders.Add(new Leader(name, score, speed, time));
 
-            leaders = leaders.OrderByDescending(l => l.Score).Take(10).ToList();
+            leaders = leaders.OrderByDescending(l => l.Score).ToList();
 
             SaveLeaders(leaders);
         }
@@ -84,22 +91,18 @@ namespace Praktiline_töö_Madu
         {
             var leaders = LoadLeaders();
 
-            Console.WriteLine("Leaderboard:");
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(35, 5);
+
+            Console.WriteLine("LEADERBOARD");
+            int i=0;
             foreach (var leader in leaders)
             {
-                Console.WriteLine(leader);
+                Console.SetCursorPosition(13, 7 + i);
+                Console.WriteLine($"{i + 1}. {leader.Name} | Счет: {leader.Score} | Cкорость: {leader.Speed} | Время: {leader.Time}");
+                i += 1;
             }
         }
     }
-    //StreamWriter to_file = new StreamWriter("Vastused.txt", true);
-    //for (int i = 0; i<v.Length; i++)
-    //{
-    //    to_file.WriteLine(v[i]);
-    //}
-    //to_file.Close();
-    //StreamReader from_file = new StreamReader("Vastused.txt");
-    //string text = from_file.ReadToEnd();
-    //Console.WriteLine(text);
-    //from_file.Close();
-    //Console.ReadLine();
 }
