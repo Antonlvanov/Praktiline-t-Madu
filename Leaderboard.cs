@@ -33,48 +33,45 @@ namespace Praktiline_töö_Madu
                 Time = time;
             }
 
-            public override string ToString()
-            {
-                return $"{Name} | Счет: {Score} | Cкорость: {Speed} | Время: {Time}";
-            }
         }
 
         public void SaveLeaders(List<Leader> leaders)
         {
-            using (StreamWriter writer = new StreamWriter(filePath))
+            using (StreamWriter sw = new StreamWriter(filePath))
             {
                 foreach (var leader in leaders)
                 {
-                    writer.WriteLine($"{leader.Name},{leader.Score},{leader.Speed},{leader.Time}");
+                    sw.WriteLine($"{leader.Name},{leader.Score},{leader.Speed},{leader.Time}");
                 }
+                sw.Close();
             }
         }
         public List<Leader> LoadLeaders()
         {
             var leaders = new List<Leader>();
-
-            if (!File.Exists(filePath))
+            try
             {
+                using (StreamReader sr = new StreamReader(filePath))
+                {
+                    string line;
+
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] data = line.Split(',');
+
+                        string name = data[0];
+                        int score = int.Parse(data[1]);
+                        int speed = int.Parse(data[2]); ;
+                        string time = data[3];
+
+                        leaders.Add(new Leader(name, score, speed, time));
+                    }
+                    sr.Close();
+                }
                 return leaders;
             }
-            using (StreamReader reader = new StreamReader(filePath))
-            {
-                string line;
-
-                while ((line = reader.ReadLine()) != null)
-                {
-                    string[] data = line.Split(',');
-
-                    string name = data[0];
-                    int score = int.Parse(data[1]);
-                    int speed = int.Parse(data[2]); ;
-                    string time = data[3];
-
-                    leaders.Add(new Leader(name, score, speed, time));
-                }
-            }
-
-            return leaders;
+            catch (Exception e) { ; Console.WriteLine(e); return leaders; }
+            
         }
 
         public void AddLeader(string name, int score, int speed, string time)
